@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
+    'messenger',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -68,6 +70,9 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'gingembre.wsgi.application'
+
+ASGI_APPLICATION = "gingembre.asgi.application"
+# should I keep WSGI_APPLICATION delaration ? 
 
 
 # Database
