@@ -1,7 +1,10 @@
 notes
 
+.env
 venv/
+
 __pycache__/
+.pytest_cache/
 
 db.sqlite3
 test_db.sqlite3
