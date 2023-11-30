@@ -1,3 +1,4 @@
+# tutorial : https://channels.readthedocs.io/en/latest/tutorial/part_4.html
 from channels.testing import ChannelsLiveServerTestCase
 from selenium import webdriver
 
@@ -13,7 +14,6 @@ class ChatTests(ChannelsLiveServerTestCase):
     def setUpClass(cls):
         super().setUpClass()
         try:
-            # NOTE: use Firefox instead of chrome as per the tutorial
             options = webdriver.FirefoxOptions()
             options.add_argument("-headless")
 
