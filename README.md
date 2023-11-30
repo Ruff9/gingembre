@@ -1,3 +1,4 @@
-# Gingembre tuto
+Gingembre
 
-loosely adapted from tutorial https://channels.readthedocs.io/en/latest/tutorial/index.html
+Live chat app build with Django channels
+
