@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<header class="main-header">
+    <p>Contact : {{contact_username}}</p>
+</header>
+
+<section class="messages-list">
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{message.body}}</p>
+        {% endfor %}
+    {% else %}
+        <p>No message yet.</p>
+    {% endif %}
+</section>
+
+{% endblock %}

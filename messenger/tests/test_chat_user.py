@@ -33,8 +33,8 @@ class TestChatUsers:
 
         browser.visit(live_server.url + reverse('index'))
 
-        link_list = browser.links.find_by_partial_href('get_conversation')
+        link_list = browser.links.find_by_partial_href('conversation')
 
         assert len(link_list) == 2
 
-        # cliquer sur le lien d'une convsersation et vérfier que l'url est la bonne 
+        # cliquer sur le lien d'une conversation et vérfier que l'url est la bonne

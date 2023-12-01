@@ -8,7 +8,7 @@
 <section class="user-list">
     {% if user_list %}
         {% for user in user_list %}
-            <a href={% url 'get_conversation' user_id=user.id %} class="user-list-link">
+            <a href={% url 'conversation' username=user.username %} class="user-list-link">
                 <div>{{user.username}}</div>
             </a>
         {% endfor %}

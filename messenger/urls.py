@@ -7,5 +7,5 @@ urlpatterns = [
     path("", views.home, name="home"),
     path("chat/", views.index, name="index"),
     path("chat/<str:room_name>/", views.room, name="room"),
-    path("get_conversation/<str:user_id>/", views.get_conversation, name="get_conversation")
+    path("conversation/<str:username>/", views.conversation, name="conversation")
 ]
