@@ -2,6 +2,7 @@ import pytest
 from django.urls import reverse
 from messenger.models import ChatUser
 
+from factories import ChatUserFactory
 
 @pytest.mark.django_db
 class TestChatUsers:
@@ -18,3 +19,25 @@ class TestChatUsers:
 
         assert chat_user.username == "Bobby"
         assert browser.url == (live_server.url + reverse('index'))
+
+    @pytest.mark.focus
+    def test_chat_user_index(self, live_server, browser, mocker):
+        user1 = ChatUserFactory(username='Micheline')
+        user2 = ChatUserFactory(username='Jean-Louis')
+        user3 = ChatUserFactory(username='Patrick')
+
+        mocker.patch(
+            'messenger.views.get_current_user',
+            return_value=user1
+        )
+
+        browser.visit(live_server.url + reverse('index'))
+
+        link_list = browser.links.find_by_partial_href('get_conversation')
+
+        assert len(link_list) == 2
+
+        # verifier que deux liens existent vers les conversations
+        # mais quelles url ? 
+        # 2 types : vers 1 conversation si elle existe
+        #             vers 1 conversation vide pour la créer

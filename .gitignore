@@ -3,6 +3,7 @@ notes
 .env
 venv/
 
+CACHE/
 __pycache__/
 .pytest_cache/
 

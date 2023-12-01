@@ -45,6 +45,7 @@ else:
 
 INSTALLED_APPS = [
     'daphne',
+    'compressor',
     'messenger',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -62,6 +63,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
 ]
 
 ROOT_URLCONF = 'gingembre.urls'
@@ -150,3 +157,11 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Scss compilation setup
+# https://lukeplant.me.uk/blog/posts/django-sass-scss-without-nodejs-or-build-step/
+
+COMPRESS_ROOT = 'messenger/static/'
+COMPRESS_PRECOMPILERS = (
+    ('text/x-scss', 'django_libsass.SassCompiler'),
+)

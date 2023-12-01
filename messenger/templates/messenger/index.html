@@ -1,6 +1,22 @@
 {% extends "base.html" %}
 
 {% block content %}
+<header class="main-header">
+    <p>Current user : {{current_user_name}}</p>
+</header>
+
+<section class="user-list">
+    {% if user_list %}
+        {% for user in user_list %}
+            <a href={% url 'get_conversation' user_id=user.id %} class="user-list-link">
+                <div>{{user.username}}</div>
+            </a>
+        {% endfor %}
+    {% else %}
+        <p>No user yet.</p>
+    {% endif %}
+</section>
+
 What chat room would you like to enter?<br>
 <input id="room-name-input" type="text" size="100"><br>
 <input id="room-name-submit" type="button" value="Enter">

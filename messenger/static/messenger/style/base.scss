@@ -1,0 +1,42 @@
+.main-container {
+  max-width: 850px;
+  margin: auto;
+}
+
+.main-header {
+  border: 1px solid gray;
+  margin-top: 20px;
+  padding: 10px;
+}
+
+input {
+  border: 1px solid black;
+}
+
+.user-list {
+  border: 1px solid lightseagreen;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.user-list-link {
+  border: 1px solid orange;
+  display: flex;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+// tuto remains
+
+#room-name-input {
+  width: 500px;
+  margin-bottom: 20px;
+}
+
+#chat-log {
+  border: 1px solid grey;
+  padding: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
