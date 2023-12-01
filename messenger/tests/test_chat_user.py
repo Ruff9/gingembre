@@ -37,7 +37,4 @@ class TestChatUsers:
 
         assert len(link_list) == 2
 
-        # verifier que deux liens existent vers les conversations
-        # mais quelles url ? 
-        # 2 types : vers 1 conversation si elle existe
-        #             vers 1 conversation vide pour la créer
+        # cliquer sur le lien d'une convsersation et vérfier que l'url est la bonne 
