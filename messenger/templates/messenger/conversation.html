@@ -15,13 +15,13 @@
             </div>
         {% endfor %}
     {% else %}
-        <p>No message yet.</p>
+        <p class="message-empty-chat" id="message-empty-chat">Pas de message pour l'instant.</p>
     {% endif %}
 </section>
 
-<section class="message-form">
-    <form>
-        <input id="message-input" class="message-input" type="text" placeholder="Type here"><br>
+<section class="message-form-container">
+    <form class="message-form">
+        <input id="message-input" class="message-input" type="text" placeholder="Type here">
         <input id="message-submit" class="message-submit" type="submit" value="Send">
     </form>
 </section>

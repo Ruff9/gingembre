@@ -13,6 +13,7 @@ scrollToBottom();
 
 convSocket.onmessage = function(e) {
     const data = JSON.parse(e.data);
+    removeEmpty();
     document.querySelector('#messages-list').appendChild(messageDOM(data));
     scrollToBottom();
 };
@@ -62,4 +63,9 @@ function scrollToBottom() {
     if (!isScrolledToBottom) {
         container.scrollTop = container.scrollHeight - container.clientHeight;
     }
+}
+
+function removeEmpty() {
+    const empty = document.getElementById("message-empty-chat");
+    if (empty) { empty.remove();}
 }
