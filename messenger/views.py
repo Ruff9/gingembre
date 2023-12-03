@@ -17,10 +17,6 @@ def index(request):
     return render(request, "messenger/index.html", {"current_user_name": current_chat_user.username, "user_list": user_list})
 
 
-def room(request, room_name):
-    return render(request, "messenger/room.html", {"room_name": room_name})
-
-
 def home(request):
     if request.method == "POST":
         form = UserNameForm(request.POST)
@@ -70,7 +66,12 @@ def conversation(request, conversation_id):
 
     messages = conversation.message_set.all()
 
-    return render(request, "messenger/conversation.html", {"messages": messages, "contact_username": contact.username})
+    return render(request, "messenger/conversation.html", {
+        "conversation_id": conversation_id,
+        "messages": messages,
+        "contact_username": contact.username,
+        "current_user_id": current_user.id
+    })
 
 
 def get_current_user(request):

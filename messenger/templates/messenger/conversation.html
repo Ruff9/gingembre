@@ -7,10 +7,12 @@
     <p>Contact : {{contact_username}}</p>
 </header>
 
-<section class="messages-list">
+<section id="messages-list" class="messages-list">
     {% if messages %}
         {% for message in messages %}
-            <p>{{message.content}}</p>
+            <div class="message-container {% if message.sender.id == current_user_id %} message-from-current-user{% endif %}">
+                <p class="message-content">{{message.content}}</p>
+            </div>
         {% endfor %}
     {% else %}
         <p>No message yet.</p>
@@ -18,12 +20,14 @@
 </section>
 
 <section class="message-form">
-    <!-- {{ contact_username|json_script:"contact_username" }} -->
     <form>
         <input id="message-input" class="message-input" type="text" placeholder="Type here"><br>
         <input id="message-submit" class="message-submit" type="submit" value="Send">
     </form>
 </section>
+
+{{ conversation_id|json_script:"conversation_id" }}
+{{ current_user_id|json_script:"current_user_id" }}
 
 <script src="{% static 'messenger/js/conversation.js' %}"></script>
 

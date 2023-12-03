@@ -2,6 +2,8 @@ import pytest
 from django.urls import reverse
 from messenger.models import ChatUser, Message
 from factories import ChatUserFactory, ConversationFactory, MessageFactory
+# from channels.test import ChannelLiveServerTestCase
+
 
 @pytest.mark.django_db
 class TestConversations:
@@ -51,5 +53,6 @@ class TestConversations:
         assert message.content == "Tu fais quoi ce soir?"
         assert message.sender == user1
 
+        assert browser.is_text_present("Tu fais quoi ce soir?") is True
 
 # TODO test with two browser and two current users to test interaction live

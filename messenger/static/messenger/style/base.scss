@@ -69,6 +69,25 @@ input {
   cursor: pointer;
 }
 
+.message-container {
+  display: flex;
+  margin-bottom: 5px;
+}
+
+.message-content {
+  padding: 5px 10px;
+  background-color: darkgray;
+  border-radius: 3px;
+}
+
+.message-from-current-user {
+  justify-content: flex-end;
+
+  .message-content {
+    background-color: lightgray;
+  }
+}
+
 // tuto remains
 
 #room-name-input {

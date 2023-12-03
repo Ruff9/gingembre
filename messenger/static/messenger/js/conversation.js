@@ -1,36 +1,53 @@
-console.log("conversation.js loaded")
+const conversation_id = JSON.parse(document.getElementById('conversation_id').textContent);
+const current_user_id = JSON.parse(document.getElementById('current_user_id').textContent);
 
-// const roomName = JSON.parse(document.getElementById('room-name').textContent);
+const convSocket = new WebSocket(
+    'ws://'
+    + window.location.host
+    + '/ws/conversation/'
+    + conversation_id
+    + '/'
+);
 
-// const chatSocket = new WebSocket(
-//     'ws://'
-//     + window.location.host
-//     + '/ws/chat/'
-//     + roomName
-//     + '/'
-// );
+convSocket.onmessage = function(e) {
+    const data = JSON.parse(e.data);
+    document.querySelector('#messages-list').appendChild(messageDOM(data));
+};
 
-// chatSocket.onmessage = function(e) {
-//     const data = JSON.parse(e.data);
-//     document.querySelector('#chat-log').value += (data.message + '\n');
-// };
+convSocket.onclose = function(e) {
+    console.error('Chat socket closed unexpectedly ');
+};
 
-// chatSocket.onclose = function(e) {
-//     console.error('Chat socket closed unexpectedly');
-// };
+document.querySelector('#message-input').focus();
+document.querySelector('#message-input').onkeyup = function(e) {
+    if (e.key === 'Enter') {
+        document.querySelector('#message-submit').click();
+    }
+};
 
-// document.querySelector('#chat-message-input').focus();
-// document.querySelector('#chat-message-input').onkeyup = function(e) {
-//     if (e.key === 'Enter') {  // enter, return
-//         document.querySelector('#chat-message-submit').click();
-//     }
-// };
+document.querySelector('#message-submit').onclick = function(e) {
+    e.preventDefault();
+    const messageInputDom = document.querySelector('#message-input');
+    const message = messageInputDom.value;
+    if (message == "") return;
 
-// document.querySelector('#chat-message-submit').onclick = function(e) {
-//     const messageInputDom = document.querySelector('#chat-message-input');
-//     const message = messageInputDom.value;
-//     chatSocket.send(JSON.stringify({
-//         'message': message
-//     }));
-//     messageInputDom.value = '';
-// };
+    convSocket.send(JSON.stringify({
+        'message': message,
+        'sender_id': current_user_id
+    }));
+    messageInputDom.value = '';
+};
+
+function messageDOM(data) {
+    let senderClass = ""
+    if (data.sender_id == current_user_id) {
+        senderClass = "message-from-current-user";
+    }
+    const str = `<div class='message-container ${senderClass}'><p class='message-content'>${data.message}</p></div>`;
+
+    const placeholder = document.createElement("div");
+    placeholder.insertAdjacentHTML("afterbegin", str);
+    const node = placeholder.firstElementChild;
+
+    return node;
+}
