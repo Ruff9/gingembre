@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
 
@@ -9,11 +10,21 @@
 <section class="messages-list">
     {% if messages %}
         {% for message in messages %}
-            <p>{{message.body}}</p>
+            <p>{{message.content}}</p>
         {% endfor %}
     {% else %}
         <p>No message yet.</p>
     {% endif %}
 </section>
+
+<section class="message-form">
+    <!-- {{ contact_username|json_script:"contact_username" }} -->
+    <form>
+        <input id="message-input" class="message-input" type="text" placeholder="Type here"><br>
+        <input id="message-submit" class="message-submit" type="submit" value="Send">
+    </form>
+</section>
+
+<script src="{% static 'messenger/js/conversation.js' %}"></script>
 
 {% endblock %}

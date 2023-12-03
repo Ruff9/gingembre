@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.db.models import Q
 
 from .forms import UserNameForm
-from .models import ChatUser, Message
+from .models import ChatUser, Message, Conversation
 
 
 def index(request):
@@ -37,22 +37,41 @@ def home(request):
     return render(request, "messenger/home.html", {"form": form})
 
 
-def conversation(request, username):
+def get_conversation(request, username):
     current_user = get_current_user(request)
     if current_user is None:
         return HttpResponseRedirect(reverse("home"))
 
-    contact = get_object_or_404(ChatUser, username=username)
+    contact = ChatUser.objects.get(username=username)
 
     try:
-        messages = Message.objects.filter(
-            Q(sender=contact) & Q(receiver=current_user) |
-            Q(sender=current_user) & Q(receiver=contact)
+        conversation = Conversation.objects.get(
+            Q(user1=contact) & Q(user2=current_user) |
+            Q(user1=current_user) & Q(user2=contact)
         )
-    except Message.DoesNotExist:
-        messages = None
+    except Conversation.DoesNotExist:
+        conversation = Conversation(user1=current_user, user2=contact)
+        conversation.save()
 
-    return render(request, "messenger/conversation.html", {"messages": messages, "contact_username": username})
+    return HttpResponseRedirect(reverse("conversation", kwargs={'conversation_id': conversation.id}))
+
+
+def conversation(request, conversation_id):
+    current_user = get_current_user(request)
+    if current_user is None:
+        return HttpResponseRedirect(reverse("home"))
+
+    conversation = get_object_or_404(Conversation, pk=conversation_id)
+
+    if conversation.user1 == current_user:
+        contact = conversation.user2
+    else:
+        contact = conversation.user1
+
+    messages = conversation.message_set.all()
+
+    return render(request, "messenger/conversation.html", {"messages": messages, "contact_username": contact.username})
+
 
 def get_current_user(request):
     current_chat_user_id = request.session.get("current_chat_user")

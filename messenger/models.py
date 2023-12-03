@@ -8,8 +8,13 @@ class ChatUser(models.Model):
         return self.username
 
 
+class Conversation(models.Model):
+    user1 = models.ForeignKey(ChatUser, on_delete=models.CASCADE, related_name="user1")
+    user2 = models.ForeignKey(ChatUser, on_delete=models.CASCADE, related_name="user2")
+
+
 class Message(models.Model):
-    sender = models.ForeignKey(ChatUser, on_delete=models.CASCADE, related_name="sent_messages")
-    receiver = models.ForeignKey(ChatUser, on_delete=models.CASCADE, related_name="received_messages")
-    body = models.TextField()
+    conversation = models.ForeignKey(Conversation, on_delete=models.CASCADE)
+    sender = models.ForeignKey(ChatUser, on_delete=models.CASCADE)
+    content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)

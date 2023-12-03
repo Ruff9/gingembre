@@ -20,7 +20,7 @@ class TestChatUsers:
         assert chat_user.username == "Bobby"
         assert browser.url == (live_server.url + reverse('index'))
 
-    @pytest.mark.focus
+
     def test_chat_user_index(self, live_server, browser, mocker):
         user1 = ChatUserFactory(username='Micheline')
         user2 = ChatUserFactory(username='Jean-Louis')
