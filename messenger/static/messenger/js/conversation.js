@@ -9,9 +9,12 @@ const convSocket = new WebSocket(
     + '/'
 );
 
+scrollToBottom();
+
 convSocket.onmessage = function(e) {
     const data = JSON.parse(e.data);
     document.querySelector('#messages-list').appendChild(messageDOM(data));
+    scrollToBottom();
 };
 
 convSocket.onclose = function(e) {
@@ -50,4 +53,13 @@ function messageDOM(data) {
     const node = placeholder.firstElementChild;
 
     return node;
+}
+
+function scrollToBottom() {
+    const container = document.getElementById("messages-list");
+    let isScrolledToBottom = container.scrollHeight - container.clientHeight <= container.scrollTop + 1;
+
+    if (!isScrolledToBottom) {
+        container.scrollTop = container.scrollHeight - container.clientHeight;
+    }
 }

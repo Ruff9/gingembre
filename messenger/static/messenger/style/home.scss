@@ -1,0 +1,23 @@
+.home-container {
+  padding-top: 50px;
+}
+
+.home-title {
+  text-align: center;
+  font-size: 2em;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.home-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.home-form-submit {
+  margin-top: 20px;
+  padding: 5px;
+  background-color: lightblue;
+  cursor: pointer;
+}

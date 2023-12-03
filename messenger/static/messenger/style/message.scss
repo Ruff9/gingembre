@@ -1,0 +1,38 @@
+.messages-list {
+  border: 1px solid lightseagreen;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  height: 500px;
+  overflow: auto;
+}
+
+.message-input {
+  width: 850px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.message-submit {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.message-container {
+  display: flex;
+  margin-bottom: 5px;
+}
+
+.message-content {
+  padding: 5px 10px;
+  background-color: darkgray;
+  border-radius: 3px;
+}
+
+.message-from-current-user {
+  justify-content: flex-end;
+
+  .message-content {
+    background-color: lightgray;
+  }
+}
