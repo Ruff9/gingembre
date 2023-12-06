@@ -33,3 +33,4 @@ libsass==0.22.0
 django_compressor==4.4
 django-libsass==0.9
 gunicorn==21.2.0
+uvicorn==0.24.0
