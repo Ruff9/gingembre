@@ -2,12 +2,12 @@
   padding: 10px 20px;
   cursor: pointer;
   width: fit-content;
-  border: 1px solid grey;
+  border: 1px solid $border-color;
   border-radius: 2px;
-  background-color: lightblue;
+  background-color: $button-backgound;
 }
 
 @mixin text-field {
-  border: 1px solid grey;
+  border: 1px solid $border-color;
   padding: 10px;
 }

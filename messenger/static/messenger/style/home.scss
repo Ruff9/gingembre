@@ -3,6 +3,7 @@
 }
 
 .home-title {
+  color: $title-color;
   text-align: center;
   font-size: 2em;
   font-weight: bold;
@@ -26,6 +27,6 @@
 }
 
 .home-form-error {
-  color: red;
+  color: $error-color;
   margin-top: 10px;
 }

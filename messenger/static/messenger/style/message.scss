@@ -1,5 +1,5 @@
 .messages-list {
-  border: 1px solid lightseagreen;
+  border: 1px solid $list-border;
   padding: 10px;
   margin-top: 10px;
   margin-bottom: 20px;
@@ -30,7 +30,7 @@
 
 .message-content {
   padding: 5px 10px;
-  background-color: darkgray;
+  background-color: $message-from-contact;
   border-radius: 3px;
   max-width: 80%;
 }
@@ -39,7 +39,7 @@
   justify-content: flex-end;
 
   .message-content {
-    background-color: lightgray;
+    background-color: $message-from-current-user;
   }
 }
 

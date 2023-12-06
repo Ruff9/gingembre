@@ -8,5 +8,5 @@ class UserNameForm(forms.Form):
     def clean_username(self):
         username = self.cleaned_data['username']
         if ChatUser.objects.filter(username=username).exists():
-            raise ValidationError("username already exists")
+            raise ValidationError("Ce pseudo est déjà pris.")
         return username
