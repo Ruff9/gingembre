@@ -6,7 +6,11 @@
 
     <form action="/" method="post" class="home-form">
         {% csrf_token %}
-        {{ form }}
+        <label for="{{ form.username.id_for_label }}">Choisir un pseudo:</label>
+        {{ form.username }}
+        {% for error in form.username.errors %}
+            <div class="home-form-error">{{error}}</div>
+        {% endfor %}
         <input type="submit" value="Entrer" class="home-form-submit">
     </form>
 </div>
