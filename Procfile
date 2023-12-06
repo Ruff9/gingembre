@@ -1,1 +1,1 @@
-web: gunicorn gingembre.asgi --worker-class=uvicorn.workers.UvicornWorker --log-file -
+web: daphne myproject.asgi:application
