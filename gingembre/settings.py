@@ -38,7 +38,7 @@ SECRET_KEY = env('SECRET_KEY')
 if DEBUG:
     ALLOWED_HOSTS = ['*']
 else:
-    ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS')
+    ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
 
 # Application definition
