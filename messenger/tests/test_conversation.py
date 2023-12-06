@@ -2,7 +2,6 @@ import pytest
 from django.urls import reverse
 from messenger.models import ChatUser, Message
 from factories import ChatUserFactory, ConversationFactory, MessageFactory
-# from channels.test import ChannelLiveServerTestCase
 
 
 @pytest.mark.django_db
