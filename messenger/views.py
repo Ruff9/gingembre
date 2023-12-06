@@ -18,6 +18,10 @@ def index(request):
 
 
 def home(request):
+    current_chat_user = get_current_user(request)
+    if current_chat_user:
+        return HttpResponseRedirect(reverse("index"))
+
     if request.method == "POST":
         form = UserNameForm(request.POST)
 
