@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 import environ
 import os
+from google.cloud import secretmanager
 
 env = environ.Env(DEBUG=(bool, False))
 
