@@ -10,9 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
-import environ
-import os
 import io
+import os
+from urllib.parse import urlparse
+
+import environ
 from google.cloud import secretmanager
 
 env = environ.Env(DEBUG=(bool, False))
