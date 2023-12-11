@@ -22,24 +22,29 @@ env = environ.Env(DEBUG=(bool, False))
 # Set the project base directory
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-env_file = os.path.join(BASE_DIR, ".env")
+# Take environment variables from .env file
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
-if os.path.isfile(env_file):
-    # Use a local secret file, if provided
-    env.read_env(env_file)
 
-elif os.environ.get("GOOGLE_CLOUD_PROJECT", None):
-    # Pull secrets from Secret Manager
-    project_id = os.environ.get("GOOGLE_CLOUD_PROJECT")
+# Setup google app engine
+# env_file = os.path.join(BASE_DIR, ".env")
 
-    client = secretmanager.SecretManagerServiceClient()
-    settings_name = os.environ.get("SETTINGS_NAME", "django_settings")
-    name = f"projects/{project_id}/secrets/{settings_name}/versions/latest"
-    payload = client.access_secret_version(name=name).payload.data.decode("UTF-8")
+# if os.path.isfile(env_file):
+#     # Use a local secret file, if provided
+#     env.read_env(env_file)
 
-    env.read_env(io.StringIO(payload))
-else:
-    raise Exception("No local .env or GOOGLE_CLOUD_PROJECT detected. No secrets found.")
+# elif os.environ.get("GOOGLE_CLOUD_PROJECT", None):
+#     # Pull secrets from Secret Manager
+#     project_id = os.environ.get("GOOGLE_CLOUD_PROJECT")
+
+#     client = secretmanager.SecretManagerServiceClient()
+#     settings_name = os.environ.get("SETTINGS_NAME", "django_settings")
+#     name = f"projects/{project_id}/secrets/{settings_name}/versions/latest"
+#     payload = client.access_secret_version(name=name).payload.data.decode("UTF-8")
+
+#     env.read_env(io.StringIO(payload))
+# else:
+#     raise Exception("No local .env or GOOGLE_CLOUD_PROJECT detected. No secrets found.")
 
 
 # False if not in os.environ because of casting above
@@ -53,26 +58,16 @@ DEBUG = env('DEBUG')
 SECRET_KEY = env('SECRET_KEY')
 
 
-
-# SECURITY WARNING: It's recommended that you use this when
-# running in production. The URL will be known once you first deploy
-# to App Engine. This code takes the URL and converts it to both these settings formats.
-# APPENGINE_URL = env("APPENGINE_URL", default=None)
-# if APPENGINE_URL:
-#     # Ensure a scheme is present in the URL before it's processed.
-#     if not urlparse(APPENGINE_URL).scheme:
-#         APPENGINE_URL = f"https://{APPENGINE_URL}"
-
-#     ALLOWED_HOSTS = [urlparse(APPENGINE_URL).netloc]
-#     CSRF_TRUSTED_ORIGINS = [APPENGINE_URL]
-#     SECURE_SSL_REDIRECT = True
-# else:
-#     ALLOWED_HOSTS = ["*"]
-
 if DEBUG:
     ALLOWED_HOSTS = ['*']
 else:
-    ALLOWED_HOSTS = ['annular-ocean-407615.ew.r.appspot.com']
+    ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
+
+# Setup google app engine
+# if DEBUG:
+#     ALLOWED_HOSTS = ['*']
+# else:
+#     ALLOWED_HOSTS = ['annular-ocean-407615.ew.r.appspot.com']
 
 
 # Application definition
@@ -123,10 +118,9 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'gingembre.wsgi.application'
+# WSGI_APPLICATION = 'gingembre.wsgi.application'
 
 ASGI_APPLICATION = "gingembre.asgi.application"
-# should I keep WSGI_APPLICATION delaration ? 
 
 CHANNEL_LAYERS = {
     "default": {
