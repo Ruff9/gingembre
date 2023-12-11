@@ -1,0 +1,38 @@
+:root {
+  --title-color: darkgreen;
+  --border-color: grey;
+  --error-color: red;
+  --button-backgound: lightblue;
+
+  --list-border: lightseagreen;
+  --message-from-current-user: lightgray;
+  --message-from-contact: darkgray;
+}
+
+.main-container {
+  max-width: 850px;
+  margin: auto;
+  padding: 0 15px;
+}
+
+.main-header {
+  border: 1px solid var(--border-color);
+  margin-top: 20px;
+  padding: 10px;
+}
+
+/* Utility classes */
+
+.button {
+  padding: 10px 20px;
+  cursor: pointer;
+  width: fit-content;
+  border: 1px solid var(--border-color);
+  border-radius: 2px;
+  background-color: var(--button-backgound);
+}
+
+.text-field {
+  border: 1px solid var(--border-color);
+  padding: 10px;
+}

@@ -3,7 +3,7 @@
 }
 
 .home-title {
-  color: $title-color;
+  color: var(--title-color);
   text-align: center;
   font-size: 2em;
   font-weight: bold;
@@ -16,17 +16,17 @@
   align-items: center;
 
   #id_username {
-    @include text-field;
+    border: 1px solid var(--border-color);
+    padding: 10px;
     margin-top: 10px;
   }
 }
 
 .home-form-submit {
-  @include button;
   margin-top: 20px;
 }
 
 .home-form-error {
-  color: $error-color;
+  color: var(--error-color);
   margin-top: 10px;
 }

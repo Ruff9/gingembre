@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block customStyles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'messenger/style/conversation.css' %}"/>
+{% endblock %}
+
 {% block content %}
 
 <header class="main-header">
@@ -21,8 +25,8 @@
 
 <section class="message-form-container">
     <form class="message-form">
-        <input id="message-input" class="message-input" type="text" placeholder="Type here">
-        <input id="message-submit" class="message-submit" type="submit" value="Send">
+        <input id="message-input" class="text-field message-input" type="text" placeholder="Type here">
+        <input id="message-submit" class="button message-submit" type="submit" value="Send">
     </form>
 </section>
 

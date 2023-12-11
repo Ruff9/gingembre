@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block customStyles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'messenger/style/user.css' %}"/>
+{% endblock %}
+
 {% block content %}
 <header class="main-header">
     <p>Current user : {{current_user_name}}</p>

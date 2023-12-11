@@ -1,5 +1,5 @@
 .messages-list {
-  border: 1px solid $list-border;
+  border: 1px solid var(--list-border);
   padding: 10px;
   margin-top: 10px;
   margin-bottom: 20px;
@@ -14,14 +14,13 @@
 }
 
 .message-input {
-  @include text-field;
   width: 100%;
   margin-bottom: 10px;
 }
 
-.message-submit {
-  @include button;
-}
+/* .message-submit {
+
+} */
 
 .message-container {
   display: flex;
@@ -30,7 +29,7 @@
 
 .message-content {
   padding: 5px 10px;
-  background-color: $message-from-contact;
+  background-color: var(--message-from-contact);
   border-radius: 3px;
   max-width: 80%;
 }
@@ -39,7 +38,7 @@
   justify-content: flex-end;
 
   .message-content {
-    background-color: $message-from-current-user;
+    background-color: var(--message-from-current-user);
   }
 }
 
