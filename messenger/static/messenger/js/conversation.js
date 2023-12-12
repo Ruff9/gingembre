@@ -2,7 +2,7 @@ const conversation_id = JSON.parse(document.getElementById('conversation_id').te
 const current_user_id = JSON.parse(document.getElementById('current_user_id').textContent);
 
 const convSocket = new WebSocket(
-    'wws://'
+    'wss://'
     + window.location.host
     + '/ws/conversation/'
     + conversation_id
