@@ -1,6 +1,0 @@
-runtime: python310
-
-env_variables:
-    APPENGINE_URL: https:/annular-ocean-407615.ew.r.appspot.com
-
-entrypoint: gunicorn gingembre.asgi --worker-class=uvicorn.workers.UvicornWorker
