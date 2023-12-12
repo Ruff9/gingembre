@@ -126,7 +126,7 @@ CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [("127.0.0.1", 6379)],
+            "hosts": [env('REDIS_URL')],
         },
     },
 }
@@ -136,7 +136,7 @@ CHANNEL_LAYERS = {
 
 import dj_database_url
 
-database_url = os.environ["DATABASE_URL"]
+database_url = env('DATABASE_URL')
 
 DATABASES = { 'default': dj_database_url.config() }
 
