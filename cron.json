@@ -1,0 +1,7 @@
+{
+    "jobs": [
+      {
+        "command": "0 0 * * * python manage.py runscript clear_chat_users"
+      }
+    ]
+  }
