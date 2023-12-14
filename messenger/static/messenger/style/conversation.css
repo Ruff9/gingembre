@@ -1,3 +1,37 @@
+.conversation-container {
+  width: 80%;
+  max-width: 850px;
+
+  align-self: flex-start;
+  margin-top: 50px;
+  padding: 30px;
+  background-color: var(--page-background);
+}
+
+.conversation-header {
+  display: flex;
+  justify-content: space-between;
+  height: 40px;
+}
+
+.back-to-user-list-link {
+  width: 50%;
+  display: flex;
+  align-items: center;
+}
+
+.back-to-list-picto {
+  height: 50%;
+  width: 40px;
+  color: var(--picto-color);
+}
+
+.conversation-header-contact {
+  font-size: 1.5em;
+  display: flex;
+  align-items: center;
+}
+
 .messages-list {
   border: 1px solid var(--list-border);
   padding: 10px;

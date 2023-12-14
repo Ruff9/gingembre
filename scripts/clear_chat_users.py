@@ -8,4 +8,4 @@ def run():
     ChatUser.objects.all().delete()
     Session.objects.all().delete()
 
-    print("Chat users deleted and session cleared.")
+    print("Chat users deleted and sessions cleared.")

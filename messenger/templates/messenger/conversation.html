@@ -6,33 +6,37 @@
 {% endblock %}
 
 {% block content %}
+    <div class="conversation-container">
+        <header class="conversation-header">
+            <a href={% url 'index' %} class="back-to-user-list-link">
+                <svg class="back-to-list-picto"><use xlink:href="{% static 'messenger/img/previous-arrow.svg' %}#picto-previous-arrow"></use></svg>
+                <p>Retour liste</p>
+            </a>
+            <div class="conversation-header-contact">{{contact_username}}</div>
+        </header>
 
-<header class="main-header">
-    <p>Contact : {{contact_username}}</p>
-</header>
+        <section id="messages-list" class="messages-list">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="message-container {% if message.sender.id == current_user_id %} message-from-current-user{% endif %}">
+                        <p class="message-content">{{message.content}}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="message-empty-chat" id="message-empty-chat">Pas de message pour l'instant.</p>
+            {% endif %}
+        </section>
 
-<section id="messages-list" class="messages-list">
-    {% if messages %}
-        {% for message in messages %}
-            <div class="message-container {% if message.sender.id == current_user_id %} message-from-current-user{% endif %}">
-                <p class="message-content">{{message.content}}</p>
-            </div>
-        {% endfor %}
-    {% else %}
-        <p class="message-empty-chat" id="message-empty-chat">Pas de message pour l'instant.</p>
-    {% endif %}
-</section>
+        <section class="message-form-container">
+            <form class="message-form">
+                <input id="message-input" class="text-field message-input" type="text" placeholder="Type here">
+                <input id="message-submit" class="button message-submit" type="submit" value="Send">
+            </form>
+        </section>
+    </div>
 
-<section class="message-form-container">
-    <form class="message-form">
-        <input id="message-input" class="text-field message-input" type="text" placeholder="Type here">
-        <input id="message-submit" class="button message-submit" type="submit" value="Send">
-    </form>
-</section>
+    {{ conversation_id|json_script:"conversation_id" }}
+    {{ current_user_id|json_script:"current_user_id" }}
 
-{{ conversation_id|json_script:"conversation_id" }}
-{{ current_user_id|json_script:"current_user_id" }}
-
-<script src="{% static 'messenger/js/conversation.js' %}"></script>
-
+    <script src="{% static 'messenger/js/conversation.js' %}"></script>
 {% endblock %}

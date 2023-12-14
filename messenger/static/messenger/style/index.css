@@ -1,0 +1,41 @@
+.user-index-container {
+  width: 80%;
+  max-width: 850px;
+
+  align-self: flex-start;
+  margin-top: 50px;
+  padding: 30px;
+  background-color: var(--page-background);
+}
+
+.user-list {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.user-list-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  height: 50px;
+  border: 2px solid var(--border-color);
+  border-radius: 5px;
+
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+.user-link-name {
+  margin-left: 15px;
+}
+
+.user-link-picto {
+  height: 100%;
+  width: 40px;
+  color: var(--picto-color);
+}
+
+.empty-user-list {
+  text-align: center;
+}

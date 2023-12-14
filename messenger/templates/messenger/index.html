@@ -2,23 +2,26 @@
 {% load static %}
 
 {% block customStyles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'messenger/style/user.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'messenger/style/index.css' %}"/>
 {% endblock %}
 
 {% block content %}
-<header class="main-header">
-    <p>Current user : {{current_user_name}}</p>
-</header>
+    <div class="user-index-container">
+        <header class="main-header">
+            <p>Current user : {{current_user_name}}</p>
+        </header>
 
-<section class="user-list">
-    {% if user_list %}
-        {% for user in user_list %}
-            <a href={% url 'get_conversation' username=user.username %} class="user-list-link">
-                <div>{{user.username}}</div>
-            </a>
-        {% endfor %}
-    {% else %}
-        <p>No user yet.</p>
-    {% endif %}
-</section>
+        <section class="user-list">
+            {% if user_list %}
+                {% for user in user_list %}
+                    <a href={% url 'get_conversation' username=user.username %} class="user-list-link">
+                        <div class="user-link-name">{{user.username}}</div>
+                        <svg class="user-link-picto"><use xlink:href="{% static 'messenger/img/next-arrow.svg' %}#picto-next-arrow"></use></svg>
+                    </a>
+                {% endfor %}
+            {% else %}
+                <p class="empty-user-list">No user yet.</p>
+            {% endif %}
+        </section>
+    </div>
 {% endblock %}

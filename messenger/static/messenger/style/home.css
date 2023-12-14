@@ -1,5 +1,6 @@
 .home-container {
-  padding-top: 50px;
+  padding: 30px;
+  background-color: var(--page-background);
 }
 
 .home-title {

@@ -1,18 +1,26 @@
 :root {
+  --app-background: #d5ffa3;
+  --page-background: #f8fff0;
+
+  --picto-color: #769FB6;
+
   --title-color: darkgreen;
-  --border-color: grey;
+  --border-color: lightgray;
   --error-color: red;
   --button-backgound: lightblue;
 
-  --list-border: lightseagreen;
+  --list-border: #188FA7;
   --message-from-current-user: lightgray;
   --message-from-contact: darkgray;
 }
 
 .main-container {
-  max-width: 850px;
-  margin: auto;
-  padding: 0 15px;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--app-background);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .main-header {
