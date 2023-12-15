@@ -1,2 +1,2 @@
-web: gunicorn gingembre.asgi --worker-class=uvicorn.workers.UvicornWorker --capture-output --log-level='debug'
+web: gunicorn gingembre.asgi --worker-class=uvicorn.workers.UvicornWorker
 postdeploy: python manage.py migrate
