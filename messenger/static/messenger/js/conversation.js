@@ -1,8 +1,10 @@
 const conversation_id = JSON.parse(document.getElementById('conversation_id').textContent);
 const current_user_id = JSON.parse(document.getElementById('current_user_id').textContent);
+const ws_scheme = window.location.protocol == 'https:' ? 'wss' : 'ws';
 
 const convSocket = new WebSocket(
-    'wss://'
+    ws_scheme
+    + '://'
     + window.location.host
     + '/ws/conversation/'
     + conversation_id

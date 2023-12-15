@@ -28,7 +28,7 @@ class MessageConsumer(WebsocketConsumer):
         sender_id = text_data_json["sender_id"]
         sender = ChatUser.objects.get(pk=sender_id)
 
-        message = Message(conversation=self.conversation, content=message_content, sender= sender)
+        message = Message(conversation=self.conversation, content=message_content, sender=sender)
         message.save()
 
         async_to_sync(self.channel_layer.group_send)(
