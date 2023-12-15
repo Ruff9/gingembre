@@ -1,15 +1,13 @@
 :root {
   --app-background: #d5ffa3;
   --page-background: #f8fff0;
+  --secondary-color: #769FB6;
+  --form-placeholder-color: #5B5B66;
 
-  --picto-color: #769FB6;
-
-  --title-color: darkgreen;
   --border-color: lightgray;
   --error-color: red;
   --button-backgound: lightblue;
 
-  --list-border: #188FA7;
   --message-from-current-user: lightgray;
   --message-from-contact: darkgray;
 }
@@ -21,12 +19,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.main-header {
-  border: 1px solid var(--border-color);
-  margin-top: 20px;
-  padding: 10px;
 }
 
 /* Utility classes */

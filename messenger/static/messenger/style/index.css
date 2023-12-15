@@ -3,13 +3,24 @@
   max-width: 850px;
 
   align-self: flex-start;
-  margin-top: 50px;
-  padding: 30px;
+  margin: 20px 10px 0 10px;
+  padding: 10px;
   background-color: var(--page-background);
 
   @media (min-width: 500px) {
     width: 80%;
+    margin: 50px 0 0 0;
+    padding: 30px;
   }
+}
+
+.user-index-header {
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.user-index-greeting {
+  text-align: center;
 }
 
 .user-list {
@@ -30,7 +41,7 @@
   margin-bottom: 15px;
 
   @media (min-width: 500px) {
-    margin-bottom: 5px;
+    margin-bottom: 20px;
   }
 }
 
@@ -41,7 +52,7 @@
 .user-link-picto {
   height: 100%;
   width: 40px;
-  color: var(--picto-color);
+  color: var(--secondary-color);
 }
 
 .empty-user-list {

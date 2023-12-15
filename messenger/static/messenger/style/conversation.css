@@ -36,7 +36,7 @@
 .back-to-list-picto {
   height: 50%;
   width: 20px;
-  color: var(--picto-color);
+  color: var(--secondary-color);
 
   @media (min-width: 500px) {
     width: 40px;
@@ -50,13 +50,15 @@
 }
 
 .messages-list {
-  border: 1px solid var(--list-border);
+  border-top: 2px solid var(--secondary-color);
+  border-bottom: 2px solid var(--secondary-color);
   padding: 10px;
   height: calc(100vh - 185px);
   overflow: auto;
 
   @media (min-width: 500px) {
     height: 500px;
+    border: 2px solid var(--secondary-color);
   }
 }
 
@@ -74,6 +76,10 @@
 .message-input {
   width: 100%;
   margin-bottom: 10px;
+}
+
+.message-input::placeholder {
+  color: var(--form-placeholder-color);
 }
 
 /* .message-submit {
