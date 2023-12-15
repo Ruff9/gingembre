@@ -1,17 +1,30 @@
 .conversation-container {
-  width: 80%;
+  width: 100%;
   max-width: 850px;
 
   align-self: flex-start;
-  margin-top: 50px;
-  padding: 30px;
+  margin: 10px 10px 0 10px;
+  padding: 0;
   background-color: var(--page-background);
+
+  @media (min-width: 500px) {
+    width: 80%;
+    padding: 0 30px;
+    margin: 50px 0 0 0;
+  }
 }
 
 .conversation-header {
   display: flex;
   justify-content: space-between;
   height: 40px;
+  margin: 10px 0;
+  padding: 0 10px;
+
+  @media (min-width: 500px) {
+    margin: 30px 0;
+    padding: 0;
+  }
 }
 
 .back-to-user-list-link {
@@ -22,8 +35,12 @@
 
 .back-to-list-picto {
   height: 50%;
-  width: 40px;
+  width: 20px;
   color: var(--picto-color);
+
+  @media (min-width: 500px) {
+    width: 40px;
+  }
 }
 
 .conversation-header-contact {
@@ -35,10 +52,17 @@
 .messages-list {
   border: 1px solid var(--list-border);
   padding: 10px;
-  margin-top: 10px;
-  margin-bottom: 20px;
-  height: 500px;
+  height: calc(100vh - 185px);
   overflow: auto;
+
+  @media (min-width: 500px) {
+    height: 500px;
+  }
+}
+
+.message-form-container {
+  height: 90px;
+  margin: 10px 0;
 }
 
 .message-form {
