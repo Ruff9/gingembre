@@ -1,0 +1,40 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#: templates/base.html:7 templates/messenger/home.html:11
+msgid "MainTitle"
+msgstr "Gingembre"
+
+#: templates/messenger/conversation.html:14
+msgid "BackToList"
+msgstr "Retour liste"
+
+#: templates/messenger/conversation.html:27
+msgid "NoMessage"
+msgstr "Pas de message pour l'instant."
+
+#: templates/messenger/conversation.html:33
+msgid "MessagePlaceholder"
+msgstr "Message"
+
+#: templates/messenger/conversation.html:34
+msgid "Send"
+msgstr "Envoyer"
+
+#: templates/messenger/home.html:15
+msgid "SelectUserName"
+msgstr "Choisir un pseudo:"
+
+#: templates/messenger/home.html:20
+msgid "Enter"
+msgstr "Entrer"
+
+#: templates/messenger/index.html:12
+msgid "Hello"
+msgstr "Bonjour"
+
+#: templates/messenger/index.html:24
+msgid "NoOtherUser"
+msgstr "Pas d'autre utilisateur."

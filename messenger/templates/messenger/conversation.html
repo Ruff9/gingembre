@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block customStyles %}
     <link rel="stylesheet" type="text/css" href="{% static 'messenger/style/conversation.css' %}"/>
@@ -10,7 +11,7 @@
         <header class="conversation-header">
             <a href={% url 'index' %} class="back-to-user-list-link">
                 <svg class="back-to-list-picto"><use xlink:href="{% static 'messenger/img/previous-arrow.svg' %}#picto-previous-arrow"></use></svg>
-                <p>Retour liste</p>
+                <p>{% translate 'BackToList' %}</p>
             </a>
             <div class="conversation-header-contact">{{contact_username}}</div>
         </header>
@@ -23,14 +24,14 @@
                     </div>
                 {% endfor %}
             {% else %}
-                <p class="message-empty-chat" id="message-empty-chat">Pas de message pour l'instant.</p>
+                <p class="message-empty-chat" id="message-empty-chat">{% translate 'NoMessage' %}</p>
             {% endif %}
         </section>
 
         <section class="message-form-container">
             <form class="message-form">
-                <input id="message-input" class="text-field message-input" type="text" placeholder="Message">
-                <input id="message-submit" class="button message-submit" type="submit" value="Envoyer">
+                <input id="message-input" class="text-field message-input" type="text" placeholder="{% translate 'MessagePlaceholder' %}">
+                <input id="message-submit" class="button message-submit" type="submit" value="{% translate 'Send' %}">
             </form>
         </section>
     </div>

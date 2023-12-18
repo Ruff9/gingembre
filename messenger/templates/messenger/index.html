@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block customStyles %}
     <link rel="stylesheet" type="text/css" href="{% static 'messenger/style/index.css' %}"/>
@@ -8,7 +9,7 @@
 {% block content %}
     <div class="user-index-container">
         <header class="user-index-header">
-            <p class="user-index-greeting">Bonjour {{current_user_name}}</p>
+            <p class="user-index-greeting">{% translate 'Hello' %} {{current_user_name}}</p>
         </header>
 
         <section class="user-list">
@@ -20,7 +21,7 @@
                     </a>
                 {% endfor %}
             {% else %}
-                <p class="empty-user-list">Pas d'autre utilisateur</p>
+                <p class="empty-user-list">{% translate 'NoOtherUser' %}</p>
             {% endif %}
         </section>
     </div>

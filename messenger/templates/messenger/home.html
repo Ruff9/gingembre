@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block customStyles %}
     <link rel="stylesheet" type="text/css" href="{% static 'messenger/style/home.css' %}"/>
@@ -7,16 +8,16 @@
 
 {% block content %}
     <div class="home-container">
-        <h1 class="home-title">Gingembre</h1>
+        <h1 class="home-title">{% translate 'MainTitle' %}</h1>
 
         <form action="/" method="post" class="home-form">
             {% csrf_token %}
-            <label for="{{ form.username.id_for_label }}">Choisir un pseudo:</label>
+            <label for="{{ form.username.id_for_label }}">{% translate 'SelectUserName' %}</label>
             {{ form.username }}
             {% for error in form.username.errors %}
                 <div class="home-form-error">{{error}}</div>
             {% endfor %}
-            <input type="submit" value="Entrer" class="button home-form-submit">
+            <input type="submit" value="{% translate 'Enter' %}" class="button home-form-submit">
         </form>
     </div>
 {% endblock %}
