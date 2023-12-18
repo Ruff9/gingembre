@@ -1,3 +1,6 @@
+#: forms.py:12
+msgid "TakenUserName"
+msgstr "Ce pseudo n'est pas disponible."
 
 #: templates/base.html:7 templates/messenger/home.html:11
 msgid "MainTitle"
