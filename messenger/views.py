@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.db.models import Q
@@ -8,19 +8,17 @@ from .models import ChatUser, Message, Conversation
 
 
 def index(request):
-    current_chat_user = get_current_user(request)
-    if current_chat_user is None:
-        return HttpResponseRedirect(reverse("home"))
+    current_user = get_current_user(request)
+    if current_user is None: return redirect("home")
 
-    user_list = ChatUser.objects.all().exclude(id=current_chat_user.id)
+    user_list = ChatUser.objects.all().exclude(id=current_user.id)
 
-    return render(request, "messenger/index.html", {"current_user_name": current_chat_user.username, "user_list": user_list})
+    return render(request, "messenger/index.html", {"current_user_name": current_user.username, "user_list": user_list})
 
 
 def home(request):
-    current_chat_user = get_current_user(request)
-    if current_chat_user:
-        return HttpResponseRedirect(reverse("index"))
+    current_user = get_current_user(request)
+    if current_user: return redirect("index")
 
     if request.method == "POST":
         form = UserNameForm(request.POST)
@@ -28,8 +26,8 @@ def home(request):
         if form.is_valid():
             chat_user = ChatUser(username=form.cleaned_data['username'])
             chat_user.save()
-            request.session["current_chat_user"] = chat_user.id
-            return HttpResponseRedirect(reverse("index"))
+            request.session["current_user"] = chat_user.id
+            return redirect("index")
 
     else:
         form = UserNameForm()
@@ -39,8 +37,7 @@ def home(request):
 
 def get_conversation(request, username):
     current_user = get_current_user(request)
-    if current_user is None:
-        return HttpResponseRedirect(reverse("home"))
+    if current_user is None: return redirect("home")
 
     contact = ChatUser.objects.get(username=username)
 
@@ -53,13 +50,12 @@ def get_conversation(request, username):
         conversation = Conversation(user1=current_user, user2=contact)
         conversation.save()
 
-    return HttpResponseRedirect(reverse("conversation", kwargs={'conversation_id': conversation.id}))
+    return redirect("conversation", conversation_id=conversation.id)
 
 
 def conversation(request, conversation_id):
     current_user = get_current_user(request)
-    if current_user is None:
-        return HttpResponseRedirect(reverse("home"))
+    if current_user is None: return redirect("home")
 
     conversation = get_object_or_404(Conversation, pk=conversation_id)
 
@@ -79,9 +75,8 @@ def conversation(request, conversation_id):
 
 
 def get_current_user(request):
-    current_chat_user_id = request.session.get("current_chat_user")
-    if current_chat_user_id is None:
+    current_user_id = request.session.get("current_user")
+    if current_user_id is None:
         return
     else:
-        return ChatUser.objects.get(pk=current_chat_user_id)
-
+        return ChatUser.objects.get(pk=current_user_id)
