@@ -19,6 +19,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: "Montserrat", sans-serif;
 }
 
 /* Utility classes */
@@ -35,4 +36,38 @@
 .text-field {
   border: 1px solid var(--border-color);
   padding: 10px;
+}
+
+/* fonts  */
+
+/* source : https://www.dafont.com/fr/philly-sans.font */
+
+@font-face {
+  font-family: 'PhillySans';
+  src: url('../fonts/PhillySans.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* source : https://fonts.google.com/specimen/Montserrat */
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../fonts/Montserrat-Medium.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../fonts/Montserrat-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../fonts/Montserrat-Italic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
 }
