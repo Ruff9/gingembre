@@ -105,7 +105,7 @@ import dj_database_url
 
 database_url = env('DATABASE_URL')
 
-DATABASES = { 'default': dj_database_url.config() }
+DATABASES = { 'default': dj_database_url.config(test_options={'NAME': 'test_gingembre'}) }
 
 
 # Password validation
