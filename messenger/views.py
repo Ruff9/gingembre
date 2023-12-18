@@ -13,7 +13,10 @@ def index(request):
 
     user_list = ChatUser.objects.all().exclude(id=current_user.id)
 
-    return render(request, "messenger/index.html", {"current_user_name": current_user.username, "user_list": user_list})
+    return render(request, "messenger/index.html", {
+        "current_user_name": current_user.username,
+        "user_list": user_list
+    })
 
 
 def home(request):
@@ -58,11 +61,7 @@ def conversation(request, conversation_id):
     if current_user is None: return redirect("home")
 
     conversation = get_object_or_404(Conversation, pk=conversation_id)
-
-    if conversation.user1 == current_user:
-        contact = conversation.user2
-    else:
-        contact = conversation.user1
+    contact = conversation.user2 if conversation.user1 == current_user else conversation.user1
 
     messages = conversation.message_set.all()
 
