@@ -32,7 +32,11 @@ class MessageConsumer(WebsocketConsumer):
         message.save()
 
         async_to_sync(self.channel_layer.group_send)(
-            self.conv_group_name, {"type": "chat.message", "message": message_content, "sender_id": sender_id}
+            self.conv_group_name, {
+                "type": "chat.message",
+                "message": message_content,
+                "sender_id": sender_id
+            }
         )
 
     def chat_message(self, event):

@@ -63,11 +63,9 @@ def conversation(request, conversation_id):
     conversation = get_object_or_404(Conversation, pk=conversation_id)
     contact = conversation.user2 if conversation.user1 == current_user else conversation.user1
 
-    messages = conversation.message_set.all()
-
     return render(request, "messenger/conversation.html", {
         "conversation_id": conversation_id,
-        "messages": messages,
+        "messages": conversation.message_set.all(),
         "contact_username": contact.username,
         "current_user_id": current_user.id
     })

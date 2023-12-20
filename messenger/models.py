@@ -18,3 +18,6 @@ class Message(models.Model):
     sender = models.ForeignKey(ChatUser, on_delete=models.CASCADE)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        get_latest_by = "created_at"
