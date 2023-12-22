@@ -2,6 +2,8 @@ import factory
 
 from messenger.models import ChatUser, Conversation, Message
 from utils.async_factory import AsyncFactory
+from pytest_factoryboy import register
+
 
 class ChatUserFactory(factory.django.DjangoModelFactory):
     class Meta:
@@ -26,8 +28,10 @@ class MessageFactory(factory.django.DjangoModelFactory):
     sender = factory.SubFactory(ChatUserFactory)
     content = "lorem ipsum"
 
-# Async versions of factory
+
+# Async versions of factories
 # factory_boy don't currently support async : https://github.com/FactoryBoy/factory_boy/issues/679
+
 
 class AsyncChatUserFactory(AsyncFactory):
     class Meta:
