@@ -11,6 +11,10 @@
             "src": "/android-chrome-512x512.png",
             "sizes": "512x512",
             "type": "image/png"
+        },
+        {
+            "src": "/gingembre_icon.svg",
+            "sizes": "220x220"
         }
     ],
     "theme_color": "#333333",
