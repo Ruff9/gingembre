@@ -1,6 +1,10 @@
 {
     "name": "Gingembre",
     "short_name": "Gingembre",
+    "description": "Messenger app with ephemeral data",
+    "theme_color": "#d5ffa3",
+    "background_color": "#d5ffa3",
+    "display": "standalone",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",
@@ -14,10 +18,8 @@
         },
         {
             "src": "/gingembre_icon.svg",
-            "sizes": "220x220"
+            "sizes": "220x220",
+            "type": "image/svg+xml"
         }
-    ],
-    "theme_color": "#333333",
-    "background_color": "#333333",
-    "display": "standalone"
+    ]
 }
