@@ -2,7 +2,7 @@
     "name": "Gingembre",
     "short_name": "Gingembre",
     "description": "Messenger app with ephemeral data",
-    "theme_color": "#d5ffa3",
+    "theme_color": "#769FB6",
     "background_color": "#d5ffa3",
     "display": "standalone",
     "start_url": ".",
