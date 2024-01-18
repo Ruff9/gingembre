@@ -21,7 +21,7 @@ class TestConversations:
 
         browser.visit(live_server.url + reverse('index'))
 
-        link = browser.links.find_by_partial_href('get_conversation/Marcellus')
+        link = browser.links.find_by_partial_href(f'conversation/{conversation.id}')
         link.click()
 
         assert browser.is_text_present("Marcellus") is True

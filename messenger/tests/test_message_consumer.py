@@ -9,7 +9,7 @@ from channels.layers import get_channel_layer
 from asgiref.sync import sync_to_async
 
 from messenger.consumer import MessageConsumer
-from messenger.models import Message
+from messenger.models import Message, Notification
 from factories import AsyncConversationFactory, AsyncChatUserFactory
 
 
@@ -62,6 +62,9 @@ class TestMessageConsumer:
 
         message = await sync_to_async(Message.objects.latest)()
         assert message.content == "Yo"
+
+        notification = await sync_to_async(Notification.objects.latest)()
+        assert notification.message_id == message.id
 
         await communicator.disconnect()
 

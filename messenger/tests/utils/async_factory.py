@@ -1,5 +1,6 @@
 # from https://gist.github.com/Andrew-Chen-Wang/59d784496c63ee65714b926d6945b4c6
 # factory_boy don't currently support async : https://github.com/FactoryBoy/factory_boy/issues/679
+# but it's coming soon ! https://github.com/FactoryBoy/factory_boy/pull/803
 
 import inspect
 

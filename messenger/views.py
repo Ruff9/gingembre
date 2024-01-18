@@ -1,22 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.http import HttpResponseRedirect
-from django.db.models import Q
+from django.db.models import Q, Count
 
 from .forms import UserNameForm
 from .models import ChatUser, Message, Conversation
-
-
-def index(request):
-    current_user = get_current_user(request)
-    if current_user is None: return redirect("home")
-
-    user_list = ChatUser.objects.all().exclude(id=current_user.id)
-
-    return render(request, "messenger/index.html", {
-        "current_user_name": current_user.username,
-        "user_list": user_list
-    })
 
 
 def home(request):
@@ -38,22 +26,23 @@ def home(request):
     return render(request, "messenger/home.html", {"form": form})
 
 
-def get_conversation(request, username):
+def index(request):
     current_user = get_current_user(request)
     if current_user is None: return redirect("home")
 
-    contact = ChatUser.objects.get(username=username)
+    conversations = list()
+    user_list = ChatUser.objects.all().exclude(id=current_user.id)
 
-    try:
-        conversation = Conversation.objects.get(
-            Q(user1=contact) & Q(user2=current_user) |
-            Q(user1=current_user) & Q(user2=contact)
-        )
-    except Conversation.DoesNotExist:
-        conversation = Conversation(user1=current_user, user2=contact)
-        conversation.save()
+    for user in user_list:
+       conversation = get_or_create_conversation(current_user, user)
+       notification_count = count_notifications(conversation)
+       data = dict(contact = user, conversation_id = conversation.id, notification_count = notification_count)
+       conversations.append(data)
 
-    return redirect("conversation", conversation_id=conversation.id)
+    return render(request, "messenger/index.html", {
+        "current_user_name": current_user.username,
+        "conversations": conversations
+    })
 
 
 def conversation(request, conversation_id):
@@ -77,3 +66,26 @@ def get_current_user(request):
         return
     else:
         return ChatUser.objects.get(pk=current_user_id)
+
+
+def get_or_create_conversation(current_user, contact):
+    try:
+        conversation = Conversation.objects.get(
+            Q(user1=contact) & Q(user2=current_user) |
+            Q(user1=current_user) & Q(user2=contact)
+        )
+    except Conversation.DoesNotExist:
+        conversation = Conversation(user1=current_user, user2=contact)
+        conversation.save()
+
+    return conversation
+
+
+def count_notifications(conversation):
+    messages = conversation.message_set.all()
+    total = 0
+
+    for message in messages:
+        total += message.notification_set.filter(read=False).count()
+
+    return total

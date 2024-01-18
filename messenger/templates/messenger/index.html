@@ -13,10 +13,16 @@
         </header>
 
         <section class="user-list">
-            {% if user_list %}
-                {% for user in user_list %}
-                    <a href={% url 'get_conversation' username=user.username %} class="user-list-link">
-                        <div class="user-link-name">{{user.username}}</div>
+            {% if conversations %}
+                {% for data in conversations %}
+                    <a href={% url 'conversation' data.conversation_id %} class="user-list-link">
+                        <div class="user-link-name">
+                            {{data.contact.username}}
+
+                            {% if data.notification_count != 0 %}
+                                <div class="notification-container"><p>{{data.notification_count}}</p></div>
+                            {% endif %}
+                        </div>
                         <svg class="user-link-picto"><use xlink:href="{% static 'messenger/img/next-arrow.svg' %}#picto-next-arrow"></use></svg>
                     </a>
                 {% endfor %}

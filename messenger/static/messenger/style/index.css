@@ -47,6 +47,7 @@
 
 .user-link-name {
   margin-left: 15px;
+  display: flex;
 }
 
 .user-link-picto {
@@ -57,4 +58,16 @@
 
 .empty-user-list {
   text-align: center;
+}
+
+.notification-container {
+  margin-left: 5px;
+  background-color: var(--notification-color);
+  color: var(--page-background);
+  font-size: 0.8em;
+  border-radius: 18px;
+  width: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

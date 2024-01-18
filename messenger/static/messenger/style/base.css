@@ -5,8 +5,9 @@
   --form-placeholder-color: #5B5B66;
 
   --border-color: lightgray;
-  --error-color: red;
+  --error-color: tomato;
   --button-backgound: lightblue;
+  --notification-color: tomato;
 
   --message-from-current-user: lightgray;
   --message-from-contact: darkgray;

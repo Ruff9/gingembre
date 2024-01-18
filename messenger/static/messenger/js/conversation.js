@@ -41,6 +41,7 @@ document.querySelector('#message-submit').onclick = function(e) {
         'message': message,
         'sender_id': current_user_id
     }));
+
     messageInputDom.value = '';
 };
 
