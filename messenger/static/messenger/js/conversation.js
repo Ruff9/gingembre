@@ -8,6 +8,8 @@ const convSocket = new ReconnectingWebSocket(
     + window.location.host
     + '/ws/conversation/'
     + conversation_id
+    + '/current_user/'
+    + current_user_id
     + '/'
 );
 

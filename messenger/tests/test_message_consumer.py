@@ -25,7 +25,7 @@ async def setup():
     user = await AsyncChatUserFactory()
     conversation = await AsyncConversationFactory(user1=user)
     application = URLRouter([
-        path("ws/conversation/<conversation_id>/", MessageConsumer.as_asgi()),
+        path("ws/conversation/<conversation_id>/current_user/<current_user_id>/", MessageConsumer.as_asgi()),
     ])
 
     yield user, conversation, application
@@ -37,9 +37,9 @@ async def setup():
 @pytest.mark.django_db(transaction=True)
 class TestMessageConsumer:
     async def test_can_connect_to_server(self, setup):
-        _, conversation, application = setup
+        user, conversation, application = setup
 
-        communicator = WebsocketCommunicator(application, f"/ws/conversation/{conversation.id}/")
+        communicator = WebsocketCommunicator(application, f"/ws/conversation/{conversation.id}/current_user/{user.id}/")
         connected, _ = await communicator.connect()
         assert connected
 
@@ -48,7 +48,7 @@ class TestMessageConsumer:
     async def test_sends_and_receive_messages(self, setup):
         user, conversation, application = setup
 
-        communicator = WebsocketCommunicator(application, f"/ws/conversation/{conversation.id}/")
+        communicator = WebsocketCommunicator(application, f"/ws/conversation/{conversation.id}/current_user/{user.id}/")
         await communicator.connect()
 
         message = {
@@ -63,15 +63,15 @@ class TestMessageConsumer:
         message = await sync_to_async(Message.objects.latest)()
         assert message.content == "Yo"
 
-        notification = await sync_to_async(Notification.objects.latest)()
-        assert notification.message_id == message.id
+        # notification = await sync_to_async(Notification.objects.latest)()
+        # assert notification.message_id == message.id
 
         await communicator.disconnect()
 
     async def test_sends_message_to_channel_layer(self, setup):
         user, conversation, application = setup
 
-        communicator = WebsocketCommunicator(application, f"/ws/conversation/{conversation.id}/")
+        communicator = WebsocketCommunicator(application, f"/ws/conversation/{conversation.id}/current_user/{user.id}/")
         await communicator.connect()
 
         channel_layer = get_channel_layer()

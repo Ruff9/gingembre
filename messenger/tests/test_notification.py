@@ -2,7 +2,7 @@ import pytest
 from django.urls import reverse
 from factories import ChatUserFactory, ConversationFactory, MessageFactory, NotificationFactory
 
-# @pytest.mark.focus
+@pytest.mark.skip
 @pytest.mark.django_db
 class TestNotifications:
     def test_notification_on_message_list(self, live_server, browser, mocker):

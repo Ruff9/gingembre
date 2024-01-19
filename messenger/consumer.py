@@ -3,19 +3,22 @@ import json
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
 from messenger.models import Conversation, Message, ChatUser, Notification
-
+from messenger.notification_manager import NotificationManager
 
 class MessageConsumer(WebsocketConsumer):
     def connect(self):
         self.conversation_id = self.scope["url_route"]["kwargs"]["conversation_id"]
+        self.current_user_id = self.scope["url_route"]["kwargs"]["current_user_id"]
         self.conv_group_name = f"conv_{self.conversation_id}"
+
         self.conversation = Conversation.objects.get(pk=self.conversation_id)
+        self.current_user = ChatUser.objects.get(pk=self.current_user_id)
 
         async_to_sync(self.channel_layer.group_add)(
             self.conv_group_name, self.channel_name
         )
 
-        # self.conversation.clear_notifications()
+        NotificationManager.mark_as_read(self.conversation, self.current_user)
         self.accept()
 
     def disconnect(self, close_code):
@@ -31,8 +34,13 @@ class MessageConsumer(WebsocketConsumer):
 
         message = Message(conversation=self.conversation, content=message_content, sender=sender)
         message.save()
-        # notification = Notification(message=message)
-        # notification.save()
+
+        if self.conversation.user1 == sender:
+            recipient = self.conversation.user2
+        else:
+            recipient = self.conversation.user1
+
+        NotificationManager.create(message, recipient)
 
         async_to_sync(self.channel_layer.group_send)(
             self.conv_group_name, {

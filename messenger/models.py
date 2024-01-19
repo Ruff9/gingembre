@@ -13,11 +13,6 @@ class Conversation(models.Model):
     user1 = models.ForeignKey(ChatUser, on_delete=models.CASCADE, related_name="user1")
     user2 = models.ForeignKey(ChatUser, on_delete=models.CASCADE, related_name="user2")
 
-    def clear_notifications(self):
-        messages = self.message_set.all()
-        for message in messages:
-            message.notification_set.update(read=True)
-
 
 class Message(models.Model):
     conversation = models.ForeignKey(Conversation, on_delete=models.CASCADE)

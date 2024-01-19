@@ -5,7 +5,7 @@ from django.db.models import Q, Count
 
 from .forms import UserNameForm
 from .models import ChatUser, Message, Conversation
-
+from .notification_manager import NotificationManager
 
 def home(request):
     current_user = get_current_user(request)
@@ -35,7 +35,7 @@ def index(request):
 
     for user in user_list:
        conversation = get_or_create_conversation(current_user, user)
-       notification_count = count_notifications(conversation)
+       notification_count = NotificationManager.conversation_unread_count(conversation, current_user)
        data = dict(contact = user, conversation_id = conversation.id, notification_count = notification_count)
        conversations.append(data)
 
@@ -54,7 +54,7 @@ def conversation(request, conversation_id):
 
     return render(request, "messenger/conversation.html", {
         "conversation_id": conversation_id,
-        "messages": conversation.message_set.all(),
+        "messages": conversation.message_set.all().order_by('created_at'),
         "contact_username": contact.username,
         "current_user_id": current_user.id
     })
@@ -79,13 +79,3 @@ def get_or_create_conversation(current_user, contact):
         conversation.save()
 
     return conversation
-
-
-def count_notifications(conversation):
-    messages = conversation.message_set.all()
-    total = 0
-
-    for message in messages:
-        total += message.notification_set.filter(read=False).count()
-
-    return total

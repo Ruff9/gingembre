@@ -34,6 +34,7 @@ class NotificationFactory(factory.django.DjangoModelFactory):
         model = Notification
 
     message = factory.SubFactory(MessageFactory)
+    recipient = factory.SubFactory(ChatUserFactory)
     read = False
 
 
