@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.db.models import Q, Count
+from django.http import JsonResponse
 
 from .forms import UserNameForm
 from .models import ChatUser, Message, Conversation
@@ -30,18 +31,11 @@ def index(request):
     current_user = get_current_user(request)
     if current_user is None: return redirect("home")
 
-    conversations = list()
     user_list = ChatUser.objects.all().exclude(id=current_user.id)
-
-    for user in user_list:
-       conversation = get_or_create_conversation(current_user, user)
-       notification_count = NotificationManager.conversation_unread_count(conversation, current_user)
-       data = dict(contact = user, conversation_id = conversation.id, notification_count = notification_count)
-       conversations.append(data)
 
     return render(request, "messenger/index.html", {
         "current_user_name": current_user.username,
-        "conversations": conversations
+        "current_user_id": current_user.id,
     })
 
 
@@ -58,6 +52,22 @@ def conversation(request, conversation_id):
         "contact_username": contact.username,
         "current_user_id": current_user.id
     })
+
+
+def conversation_index(request):
+    current_user = get_current_user(request)
+    conversations = dict()
+    user_list = ChatUser.objects.all().exclude(id=current_user.id)
+
+    for count, user in enumerate(user_list, start=1):
+       conversation = get_or_create_conversation(current_user, user)
+       url = reverse('conversation', kwargs={'conversation_id': conversation.id})
+       contact_name = user.username
+       notification_count = NotificationManager.conversation_unread_count(conversation, current_user)
+       data = dict(id = count, conversation_id = conversation.id, url = url, contact_name = contact_name, notification_count = notification_count)
+       conversations[count] = data
+
+    return JsonResponse(conversations)
 
 
 def get_current_user(request):

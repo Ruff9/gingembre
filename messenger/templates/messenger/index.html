@@ -12,23 +12,30 @@
             <p class="user-index-greeting">{% translate 'Hello' %} {{current_user_name}}</p>
         </header>
 
-        <section class="user-list">
-            {% if conversations %}
-                {% for data in conversations %}
-                    <a href={% url 'conversation' data.conversation_id %} class="user-list-link">
+        <section x-data="$store.indexData.conversations" class="user-list">
+            <template x-if="$store.indexData.conversations.length != 0">
+                <template x-for="data in Object.values($store.indexData.conversations)" >
+                    <a :href="data.url" class="user-list-link">
                         <div class="user-link-name">
-                            {{data.contact.username}}
+                            <span x-text="data.contact_name"></span>
 
-                            {% if data.notification_count != 0 %}
-                                <div class="notification-container"><p>{{data.notification_count}}</p></div>
-                            {% endif %}
+                            <template x-if="data.notification_count != 0">
+                                <div x-data="{ count: data.notification_count }" class="notification-container">
+                                    <p x-text="data.notification_count"></p>
+                                </div>
+                            </template>
                         </div>
                         <svg class="user-link-picto"><use xlink:href="{% static 'messenger/img/next-arrow.svg' %}#picto-next-arrow"></use></svg>
                     </a>
-                {% endfor %}
-            {% else %}
+                </template>
+            </template>
+            <template x-if="$store.indexData.conversations.length === 0" x-cloak>
                 <p class="empty-user-list">{% translate 'NoOtherUser' %}</p>
-            {% endif %}
+            </template>
         </section>
     </div>
+
+    {{ current_user_id|json_script:"current_user_id" }}
+
+    <script src="{% static 'messenger/js/index.js' %}"></script>
 {% endblock %}
