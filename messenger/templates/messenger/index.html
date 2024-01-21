@@ -13,7 +13,7 @@
         </header>
 
         <section x-data="$store.indexData.conversations" class="user-list">
-            <template x-if="$store.indexData.conversations.length != 0">
+            <template x-if="$store.indexData.conversationCount != 0">
                 <template x-for="data in Object.values($store.indexData.conversations)" >
                     <a :href="data.url" class="user-list-link">
                         <div class="user-link-name">
@@ -29,7 +29,7 @@
                     </a>
                 </template>
             </template>
-            <template x-if="$store.indexData.conversations.length === 0" x-cloak>
+            <template x-if="$store.indexData.showEmpty && $store.indexData.conversationCount == 0">
                 <p class="empty-user-list">{% translate 'NoOtherUser' %}</p>
             </template>
         </section>

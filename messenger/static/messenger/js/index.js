@@ -5,13 +5,20 @@ const setIntervalAsync = SetIntervalAsync.setIntervalAsync;
 
 document.addEventListener('alpine:init', () => {
     Alpine.store('indexData', {
-        conversations: [],
+        conversations: {},
+        showEmpty: false,
+
+        get conversationCount () {
+            return Object.keys(this.conversations).length
+        },
 
         async init() {
             this.conversations = await getDataFromAPI();
+            this.showEmpty = true;
         }
     })
 })
+
 
 async function getDataFromAPI() {
     const response = await fetch(api_url)

@@ -57,17 +57,22 @@ def conversation(request, conversation_id):
 def conversation_index(request):
     current_user = get_current_user(request)
     conversations = dict()
+    if current_user is None: return JsonResponse(conversations)
+
     user_list = ChatUser.objects.all().exclude(id=current_user.id)
 
-    for count, user in enumerate(user_list, start=1):
-       conversation = get_or_create_conversation(current_user, user)
-       url = reverse('conversation', kwargs={'conversation_id': conversation.id})
-       contact_name = user.username
-       notification_count = NotificationManager.conversation_unread_count(conversation, current_user)
-       data = dict(id = count, conversation_id = conversation.id, url = url, contact_name = contact_name, notification_count = notification_count)
-       conversations[count] = data
+    if not user_list:
+        return JsonResponse(conversations)
+    else:
+        for count, user in enumerate(user_list, start=1):
+            conversation = get_or_create_conversation(current_user, user)
+            url = reverse('conversation', kwargs={'conversation_id': conversation.id})
+            contact_name = user.username
+            notification_count = NotificationManager.conversation_unread_count(conversation, current_user)
+            data = dict(id = count, conversation_id = conversation.id, url = url, contact_name = contact_name, notification_count = notification_count)
+            conversations[count] = data
 
-    return JsonResponse(conversations)
+        return JsonResponse(conversations)
 
 
 def get_current_user(request):
