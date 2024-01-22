@@ -8,7 +8,7 @@ msgstr "Gingembre"
 
 #: templates/messenger/conversation.html:14
 msgid "BackToList"
-msgstr "Retour liste"
+msgstr "Accueil"
 
 #: templates/messenger/conversation.html:27
 msgid "NoMessage"

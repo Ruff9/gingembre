@@ -75,6 +75,15 @@ def conversation_index(request):
         return JsonResponse(conversations)
 
 
+def notification_total_count(request):
+    current_user = get_current_user(request)
+    if current_user is None: return redirect("home")
+
+    total = NotificationManager.total_unread_count(current_user)
+
+    return JsonResponse({ "total": total })
+
+
 def get_current_user(request):
     current_user_id = request.session.get("current_user")
     if current_user_id is None:

@@ -2,6 +2,7 @@ const conversation_id = JSON.parse(document.getElementById('conversation_id').te
 const current_user_id = JSON.parse(document.getElementById('current_user_id').textContent);
 const ws_scheme = window.location.protocol == 'https:' ? 'wss' : 'ws';
 
+
 const convSocket = new ReconnectingWebSocket(
     ws_scheme
     + '://'
@@ -73,4 +74,29 @@ function scrollToBottom() {
 function removeEmpty() {
     const empty = document.getElementById("message-empty-chat");
     if (empty) { empty.remove();}
+}
+
+
+// AlpineJS setup for notifications
+
+const setIntervalAsync = SetIntervalAsync.setIntervalAsync;
+const api_url = window.location.origin + '/notification_count/'
+
+
+document.addEventListener('alpine:init', () => {
+    Alpine.store('notifications', () => ({
+        count: 0,
+
+        startTimer() {
+            setIntervalAsync(async () => {
+                const data = await getDataFromAPI();
+                this.count = data["total"];
+            }, 1000)
+        }
+    }))
+})
+
+async function getDataFromAPI() {
+    const response = await fetch(api_url)
+    return response.json()
 }

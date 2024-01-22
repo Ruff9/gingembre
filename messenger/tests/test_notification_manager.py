@@ -4,7 +4,7 @@ from messenger.models import Notification
 from messenger.notification_manager import NotificationManager
 from factories import ChatUserFactory, ConversationFactory, MessageFactory, NotificationFactory
 
-@pytest.mark.focus
+
 @pytest.mark.django_db
 class TestNotificationManager:
     def test_create(self):
@@ -72,4 +72,23 @@ class TestNotificationManager:
 
         assert count == 1
 
-    # def total_count(self):
+    def test_total_unread_count(self):
+        user1 = ChatUserFactory()
+        user2 = ChatUserFactory()
+        user3 = ChatUserFactory()
+        conversation1 = ConversationFactory(user1=user1, user2=user2)
+        conversation2 = ConversationFactory(user1=user1, user2=user3)
+
+        message1 = MessageFactory(conversation=conversation1)
+        message2 = MessageFactory(conversation=conversation1)
+        message3 = MessageFactory(conversation=conversation2)
+
+        NotificationFactory(message=message1, recipient=user1, read=False)
+        NotificationFactory(message=message2, recipient=user1, read=False)
+        NotificationFactory(message=message3, recipient=user1, read=False)
+
+        NotificationFactory(message=message1, recipient=user1, read=True)
+
+        count = NotificationManager.total_unread_count(user1)
+
+        assert count == 3

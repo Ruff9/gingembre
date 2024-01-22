@@ -1,4 +1,4 @@
-from messenger.models import Notification
+from messenger.models import Conversation, Notification
 
 class NotificationManager():
 
@@ -24,5 +24,12 @@ class NotificationManager():
 
         return total
 
-    # @staticmethod
-    # def total_unread_count(user):
+    @staticmethod
+    def total_unread_count(user):
+        conversations = Conversation.objects.filter(user1=user) | Conversation.objects.filter(user2=user)
+        total = 0
+
+        for conversation in conversations:
+            total += NotificationManager.conversation_unread_count(conversation, user)
+
+        return total
