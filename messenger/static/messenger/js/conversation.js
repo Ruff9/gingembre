@@ -77,7 +77,7 @@ function removeEmpty() {
 }
 
 
-// AlpineJS setup for notifications
+// AlpineJS for notifications
 
 const setIntervalAsync = SetIntervalAsync.setIntervalAsync;
 const api_url = window.location.origin + '/notification_count/'

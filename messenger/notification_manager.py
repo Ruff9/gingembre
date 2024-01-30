@@ -1,7 +1,7 @@
 from messenger.models import Conversation, Notification
 
-class NotificationManager():
 
+class NotificationManager():
     @staticmethod
     def create(message, recipient):
         notification = Notification(message=message, recipient=recipient)
@@ -23,6 +23,7 @@ class NotificationManager():
             total += message.notification_set.filter(recipient=current_user, read=False).count()
 
         return total
+
 
     @staticmethod
     def total_unread_count(user):

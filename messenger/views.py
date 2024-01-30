@@ -8,6 +8,7 @@ from .forms import UserNameForm
 from .models import ChatUser, Message, Conversation
 from .notification_manager import NotificationManager
 
+
 def home(request):
     current_user = get_current_user(request)
     if current_user: return redirect("index")

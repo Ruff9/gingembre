@@ -5,6 +5,7 @@ from channels.generic.websocket import WebsocketConsumer
 from messenger.models import Conversation, Message, ChatUser, Notification
 from messenger.notification_manager import NotificationManager
 
+
 class MessageConsumer(WebsocketConsumer):
     def connect(self):
         self.conversation_id = self.scope["url_route"]["kwargs"]["conversation_id"]
@@ -21,10 +22,12 @@ class MessageConsumer(WebsocketConsumer):
         NotificationManager.mark_as_read(self.conversation, self.current_user)
         self.accept()
 
+
     def disconnect(self, close_code):
         async_to_sync(self.channel_layer.group_discard)(
             self.conv_group_name, self.channel_name
         )
+
 
     def receive(self, text_data):
         text_data_json = json.loads(text_data)
@@ -40,6 +43,7 @@ class MessageConsumer(WebsocketConsumer):
         else:
             recipient = self.conversation.user1
 
+        # if recipient is not watching the conversation page (???)
         NotificationManager.create(message, recipient)
 
         async_to_sync(self.channel_layer.group_send)(
@@ -49,6 +53,7 @@ class MessageConsumer(WebsocketConsumer):
                 "sender_id": sender_id
             }
         )
+
 
     def chat_message(self, event):
         message = event["message"]
