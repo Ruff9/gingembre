@@ -31,6 +31,11 @@ class MessageConsumer(WebsocketConsumer):
 
     def receive(self, text_data):
         text_data_json = json.loads(text_data)
+
+        if text_data_json["action"] == "clear_notifs":
+            NotificationManager.mark_as_read(self.conversation, self.current_user)
+            return
+
         message_content = text_data_json["message"]
         sender_id = text_data_json["sender_id"]
         sender = ChatUser.objects.get(pk=sender_id)

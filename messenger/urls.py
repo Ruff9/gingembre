@@ -8,5 +8,4 @@ urlpatterns = [
     path("index/", views.index, name="index"),
     path("conversation_index/", views.conversation_index),
     path("conversation/<int:conversation_id>/", views.conversation, name="conversation"),
-    path("notification_count/", views.notification_total_count)
 ]
