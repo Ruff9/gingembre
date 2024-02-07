@@ -23,3 +23,16 @@ class NotificationManager():
             total += message.notification_set.filter(recipient=current_user, read=False).count()
 
         return total
+
+
+    @staticmethod
+    def other_conversations_count(conversation, current_user):
+        conversations = Conversation.objects.filter(user1=current_user) | Conversation.objects.filter(user2=current_user)
+        conversations = conversations.exclude(id=conversation.id)
+
+        total = 0
+
+        for conversation in conversations:
+            total += NotificationManager.conversation_unread_count(conversation, current_user)
+
+        return total

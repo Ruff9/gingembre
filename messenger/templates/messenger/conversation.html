@@ -9,9 +9,13 @@
 {% block content %}
     <div class="conversation-container">
         <header class="conversation-header">
-            <a href={% url 'index' %} class="back-to-user-list-link" id="back-to-index">
+            <a href={% url 'index' %} class="back-to-user-list-link" id="back-to-index" x-data="$store.notifications" x-init="startTimer()">
                 <svg class="back-to-list-picto"><use xlink:href="{% static 'messenger/img/previous-arrow.svg' %}#picto-previous-arrow"></use></svg>
                 <p>{% translate 'BackToList' %}</p>
+
+                <div class="notification-container" x-show="count != 0">
+                    <p x-text="count"></p>
+                </div>
             </a>
 
             <div class="conversation-header-contact">{{contact_username}}</div>

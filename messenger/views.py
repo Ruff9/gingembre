@@ -76,6 +76,16 @@ def conversation_index(request):
         return JsonResponse(conversations)
 
 
+def notification_count(request, conversation_id):
+    current_user = get_current_user(request)
+    if current_user is None: return redirect("home")
+
+    conversation = Conversation.objects.get(pk=conversation_id)
+    total = NotificationManager.other_conversations_count(conversation, current_user)
+
+    return JsonResponse({ "total": total })
+
+
 def get_current_user(request):
     current_user_id = request.session.get("current_user")
     if current_user_id is None:

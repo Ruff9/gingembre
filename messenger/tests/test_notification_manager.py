@@ -21,13 +21,13 @@ def conversation(user1, user2):
 
 
 @pytest.fixture
-def message1(conversation):
-    return MessageFactory(conversation=conversation)
+def message1(conversation, user2):
+    return MessageFactory(conversation=conversation, sender=user2)
 
 
 @pytest.fixture
-def message2(conversation):
-    return MessageFactory(conversation=conversation)
+def message2(conversation, user1):
+    return MessageFactory(conversation=conversation, sender=user1)
 
 
 @pytest.mark.django_db
@@ -75,5 +75,18 @@ class TestNotificationManager:
         NotificationFactory(recipient=user2, read=False)
         
         count = NotificationManager.conversation_unread_count(conversation, user1)
+
+        assert count == 1
+
+
+    def test_other_conversations_count(self, user1, conversation, message1):
+        user3 = ChatUserFactory()
+        conversation2 = ConversationFactory(user1=user1, user2=user3)
+        message2 = MessageFactory(conversation=conversation2, sender=user3)
+
+        NotificationFactory(message=message1, recipient=user1, read=False)
+        NotificationFactory(message=message2, recipient=user1, read=False)
+
+        count = NotificationManager.other_conversations_count(conversation, user1)
 
         assert count == 1

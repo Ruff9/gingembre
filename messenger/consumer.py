@@ -44,12 +44,8 @@ class MessageConsumer(WebsocketConsumer):
         message = Message(conversation=self.conversation, content=message_content, sender=sender)
         message.save()
 
-        if self.conversation.user1 == sender:
-            recipient = self.conversation.user2
-        else:
-            recipient = self.conversation.user1
+        recipient = self.conversation.user2 if self.conversation.user1 == sender else self.conversation.user1
 
-        # if recipient is not watching the conversation page (???)
         NotificationManager.create(message, recipient)
 
         async_to_sync(self.channel_layer.group_send)(

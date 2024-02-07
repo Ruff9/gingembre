@@ -79,3 +79,27 @@ function removeEmpty() {
     const empty = document.getElementById("message-empty-chat");
     if (empty) { empty.remove();}
 }
+
+
+// AlpineJS for notifications
+
+const setIntervalAsync = SetIntervalAsync.setIntervalAsync;
+const api_url = window.location.origin + '/notification_count/' + conversation_id + '/'
+
+document.addEventListener('alpine:init', () => {
+    Alpine.store('notifications', () => ({
+        count: 0,
+
+        startTimer() {
+            setIntervalAsync(async () => {
+                const data = await getDataFromAPI();
+                this.count = data["total"];
+            }, 1000)
+        }
+    }))
+})
+
+async function getDataFromAPI() {
+    const response = await fetch(api_url);
+    return response.json();
+}
