@@ -58,13 +58,14 @@ class TestMessageConsumer:
 
         await communicator.send_json_to(message)
         response = await communicator.receive_from()
+
         assert response == json.dumps(message)
 
         message = await sync_to_async(Message.objects.latest)()
         assert message.content == "Yo"
 
-        # notification = await sync_to_async(Notification.objects.latest)()
-        # assert notification.message_id == message.id
+        notification = await sync_to_async(Notification.objects.latest)()
+        assert notification.message_id == message.id
 
         await communicator.disconnect()
 

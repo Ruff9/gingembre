@@ -4,7 +4,7 @@ from messenger.models import ChatUser, Message
 from factories import ChatUserFactory, ConversationFactory, MessageFactory
 
 
-@pytest.mark.django_db
+@pytest.mark.django_db(transaction=True)
 class TestConversations:
     def test_message_list(self, live_server, browser, mocker):
         user1 = ChatUserFactory(username='Bob')
@@ -55,4 +55,4 @@ class TestConversations:
 
         assert browser.is_text_present("Tu fais quoi ce soir?") is True
 
-# TODO test with two browser and two current users to test interaction live
+        # TODO test with two browser and two current users to test interaction live

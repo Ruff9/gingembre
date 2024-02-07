@@ -42,7 +42,6 @@ document.querySelector('#message-submit').onclick = function(e) {
 
     convSocket.send(JSON.stringify({
         'message': message,
-        'action': '',
         'sender_id': current_user_id
     }));
 
@@ -50,9 +49,7 @@ document.querySelector('#message-submit').onclick = function(e) {
 };
 
 document.querySelector('#back-to-index').onclick = function(e) {
-    convSocket.send(JSON.stringify({
-        'action': 'clear_notifs'
-    }));
+    convSocket.send(JSON.stringify({'action': 'clear_notifs'}));
 }
 
 function messageDOM(data) {
